@@ -1,25 +1,24 @@
 var gulp = require("gulp"),
-	watch = require	('gulp-watch'),
-  	connect = require('gulp-connect');
+  watch = require ('gulp-watch'),
+    connect = require('gulp-connect');
 
 
 gulp.task('html', function() {
-	gulp.src('./src/*.html')
-		.pipe(connect.reload());
+  gulp.src('./dist/*.html')
+    .pipe(connect.reload());
 })
 
 gulp.task('watch', function() {
-    gulp.watch('./src/*.html', ['html']);
-    gulp.watch('./src/js/*.js', ['html']);
+    gulp.watch('./dist/*.html', ['html']);
+    gulp.watch('./dist/*.js', ['html']);
 });
 
 gulp.task('connect', function() {
-  	connect.server({
-  		root: 'src',
-  		livereload: true
-  	});
+    connect.server({
+      root: 'dist',
+      livereload: true
+    });
 });
 
 
 gulp.task('default', ['connect', 'watch']);
-
