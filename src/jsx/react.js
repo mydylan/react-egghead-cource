@@ -1,22 +1,20 @@
-var App = React.createClass({
-    getInitialState: function() {
-        return {data:[
-                    {val: 9},
-                    {val: 2},
-                    {val: 3},
-                    {val: 9},
-                    {val: 1},
-                    {val: 0},
-                    {val: 5}
-                ]
-            }
+var App = React.createClass({displayName: 'App',
+    componentWillReceiveProps: function(nextProps) {
+        if (nextProps.data) {
+            this.renderChart(nextProps.data);
+        }
+    },
+    renderChart: function (dataset) {
+        d3.select("#" + this.props.target).selectAll("div")
+            .data(dataset)
+            .enter()
+            .append("div")
+            .attr("class", "bar")
+            .style("height", function (d) {
+                return d.val * 5 + "px";
+            })
     },
     render: function() {
-        var items = this.state.data.map(function(item){
-            return <li>{item.val}</li>
-        });
-        return <ul>{items}</ul>
+        return React.DOM.div ({id: this.props.target})
     }
-});
-
-React.render(<App />, document.body);
+})
